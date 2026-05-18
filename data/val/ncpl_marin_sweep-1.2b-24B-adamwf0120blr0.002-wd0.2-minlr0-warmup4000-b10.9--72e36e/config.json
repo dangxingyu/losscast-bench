@@ -1,0 +1,41 @@
+{
+  "run_id": "ncpl_marin_sweep-1.2b-24B-adamwf0120blr0.002-wd0.2-minlr0-warmup4000-b10.9--72e36e",
+  "model": {
+    "arch": "transformer",
+    "n_layers": 32,
+    "d_model": 1536,
+    "n_heads": 24,
+    "d_ff": 4096,
+    "vocab_size": 32000,
+    "activation": "swiglu",
+    "norm_type": "rmsnorm",
+    "rope": true
+  },
+  "optimizer": {
+    "name": "adamw",
+    "lr": 0.002,
+    "weight_decay": 0.2,
+    "beta1": 0.9,
+    "beta2": 0.98,
+    "eps": 1e-10,
+    "grad_clip": 2
+  },
+  "data": {
+    "dataset": "dolma",
+    "tokenizer": "EleutherAI/gpt-neox-20b",
+    "eval_dataset": "c4_en",
+    "seq_len": 2048,
+    "batch_tokens": 524288,
+    "tokens_total": 12079595520
+  },
+  "schedule": {
+    "lr_schedule": "cosine",
+    "warmup_steps": 4000,
+    "total_steps": 23040,
+    "cooldown_steps": 0,
+    "final_lr_ratio": 0.0
+  },
+  "eval_interval": 1000,
+  "precision": "bf16",
+  "n_params": 1200000000.0
+}

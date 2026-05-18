@@ -1,0 +1,17 @@
+{
+  "wandb_id": "vf86bpfu",
+  "wandb_name": "sweep-300m-6B-lbs-muon-2xlr",
+  "wandb_project": "stanford-mercury/optimizer-scaling",
+  "wandb_url": "https://wandb.ai/stanford-mercury/optimizer-scaling/runs/vf86bpfu",
+  "state": "finished",
+  "created_at": "2025-08-28T16:30:16Z",
+  "parsed": {
+    "model_size": "300M",
+    "n_params": 300000000.0,
+    "tokens": "6B",
+    "tokens_total": 6000000000.0,
+    "optimizer": "muon",
+    "name": "sweep-300m-6B-lbs-muon-2xlr",
+    "id": "vf86bpfu"
+  }
+}

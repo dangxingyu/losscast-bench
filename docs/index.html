@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LossCast-Bench</title>
+  <meta name="description" content="An open benchmark for predicting LLM pretraining loss curves from training recipes.">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #12151f;
+      --muted: #5b6374;
+      --line: #d9deea;
+      --panel: #ffffff;
+      --paper: #f7f8fb;
+      --blue: #2563eb;
+      --teal: #0f766e;
+      --red: #c2410c;
+      --green: #15803d;
+      --shadow: 0 20px 60px rgba(18, 21, 31, 0.10);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px min(5vw, 64px);
+      background: rgba(247, 248, 251, 0.88);
+      border-bottom: 1px solid rgba(217, 222, 234, 0.72);
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .navlinks {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: white;
+      font-size: 14px;
+      font-weight: 750;
+      box-shadow: 0 12px 30px rgba(18, 21, 31, 0.18);
+    }
+
+    .button.secondary {
+      background: white;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(420px, 0.98fr);
+      gap: min(6vw, 72px);
+      align-items: center;
+      padding: 74px min(5vw, 64px) 38px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .hero > *,
+    .section > *,
+    .code > * {
+      min-width: 0;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 780px;
+      font-size: clamp(48px, 7.2vw, 94px);
+      line-height: 0.94;
+      letter-spacing: 0;
+    }
+
+    .lede {
+      max-width: 650px;
+      margin: 28px 0 0;
+      color: #394151;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.45;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 42px;
+      max-width: 700px;
+    }
+
+    .stat {
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: clamp(26px, 3.6vw, 42px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .visual {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+      min-width: 0;
+    }
+
+    .visual-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .visual h2,
+    .section h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .visual p,
+    .section p {
+      color: var(--muted);
+    }
+
+    .chart {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcff;
+    }
+
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .legend i {
+      display: inline-block;
+      width: 20px;
+      height: 3px;
+      margin-right: 7px;
+      vertical-align: middle;
+      border-radius: 999px;
+    }
+
+    .section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 72px min(5vw, 64px);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 28px;
+    }
+
+    .section-head p {
+      max-width: 560px;
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      letter-spacing: 0;
+    }
+
+    .card p {
+      margin: 0;
+    }
+
+    .bars {
+      display: grid;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 92px 1fr 60px;
+      align-items: center;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .track {
+      height: 12px;
+      background: #e8edf6;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      border-radius: inherit;
+      background: var(--blue);
+    }
+
+    .fill.teal {
+      background: var(--teal);
+    }
+
+    .fill.red {
+      background: var(--red);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(18, 21, 31, 0.05);
+    }
+
+    th,
+    td {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .code {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      min-height: 100%;
+      padding: 22px;
+      color: #d7e2ff;
+      background: #111827;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .footer {
+      padding: 36px min(5vw, 64px) 54px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        position: static;
+        align-items: flex-start;
+      }
+
+      .navlinks {
+        display: none;
+      }
+
+      .nav > .button {
+        display: none;
+      }
+
+      .hero,
+      .code {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 46px;
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      h1,
+      .lede,
+      .visual {
+        max-width: calc(100vw - 40px);
+      }
+
+      .lede {
+        width: 100%;
+        max-width: 340px;
+      }
+
+      .visual p {
+        max-width: 300px;
+      }
+
+      .stats,
+      .grid,
+      .legend {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="nav">
+      <a class="brand" href="#top" aria-label="LossCast-Bench home">
+        <span class="mark">LC</span>
+        <span>LossCast-Bench</span>
+      </a>
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#dataset">Dataset</a>
+        <a href="#baselines">Baselines</a>
+        <a href="#demo">Demo</a>
+        <a href="data.html">Data spec</a>
+      </nav>
+      <a class="button" href="https://github.com/dangxingyu/losscast-bench">View on GitHub</a>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div>
+          <h1>Predict the loss curve before the run exists.</h1>
+          <p class="lede">LossCast-Bench is an open benchmark for building world models of deep learning: predictors that forecast LLM pretraining loss from the recipe alone.</p>
+          <div class="actions">
+            <a class="button" href="https://github.com/dangxingyu/losscast-bench#one-minute-demo">Run the demo</a>
+            <a class="button secondary" href="https://github.com/dangxingyu/losscast-bench/blob/master/PREDICT.md">Build a predictor</a>
+          </div>
+          <div class="stats" aria-label="Benchmark snapshot">
+            <div class="stat"><strong>5,896</strong><span>public train/val runs</span></div>
+            <div class="stat"><strong>70,518</strong><span>validation points</span></div>
+            <div class="stat"><strong>26</strong><span>hidden test runs</span></div>
+          </div>
+        </div>
+
+        <aside class="visual" aria-label="Loss curve preview">
+          <div class="visual-head">
+            <div>
+              <h2>Recipe to curve</h2>
+              <p>Baselines score full trajectories, not just the final checkpoint.</p>
+            </div>
+          </div>
+          <svg class="chart" viewBox="0 0 620 360" role="img" aria-label="Example predicted and actual loss curves">
+            <defs>
+              <linearGradient id="gridFade" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#f7faff"/>
+                <stop offset="100%" stop-color="#ffffff"/>
+              </linearGradient>
+            </defs>
+            <rect width="620" height="360" fill="url(#gridFade)"/>
+            <g stroke="#d9deea" stroke-width="1">
+              <path d="M70 40H580M70 100H580M70 160H580M70 220H580M70 280H580"/>
+              <path d="M70 40V300M172 40V300M274 40V300M376 40V300M478 40V300M580 40V300"/>
+            </g>
+            <g fill="#5b6374" font-size="12" font-family="Inter, sans-serif">
+              <text x="30" y="45">8.0</text>
+              <text x="30" y="165">5.0</text>
+              <text x="30" y="285">2.0</text>
+              <text x="70" y="330">start</text>
+              <text x="518" y="330">final step</text>
+            </g>
+            <path d="M70 70C120 92 135 122 172 146C218 176 248 182 274 196C326 223 350 226 376 238C424 258 454 262 478 270C522 284 552 286 580 292" fill="none" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
+            <path d="M70 82C118 100 138 130 172 151C220 180 248 190 274 203C326 224 350 233 376 242C424 259 452 266 478 274C522 286 552 290 580 296" fill="none" stroke="#0f766e" stroke-width="4" stroke-linecap="round" stroke-dasharray="12 10"/>
+            <path d="M70 118C120 137 140 162 172 181C218 205 246 217 274 229C324 248 350 256 376 264C424 277 452 282 478 287C522 296 552 298 580 302" fill="none" stroke="#c2410c" stroke-width="4" stroke-linecap="round" opacity="0.76"/>
+            <circle cx="580" cy="292" r="6" fill="#2563eb"/>
+            <circle cx="580" cy="296" r="5" fill="#0f766e"/>
+            <circle cx="580" cy="302" r="5" fill="#c2410c"/>
+          </svg>
+          <div class="legend">
+            <span><i style="background:#2563eb"></i>Actual</span>
+            <span><i style="background:#0f766e"></i>xgboost_ultimate</span>
+            <span><i style="background:#c2410c"></i>Chinchilla</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section" id="dataset">
+        <div class="section-head">
+          <h2>Open train/val data, hidden leaderboard test.</h2>
+          <p>The public repository contains complete train and validation runs. Hidden d26 nanochat runs stay private for leaderboard evaluation.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>Marin</h3>
+            <p>2,549 runs across 130M to 1.2B parameter transformers with diverse optimizer families.</p>
+          </article>
+          <article class="card">
+            <h3>StepLaw</h3>
+            <p>2,537 runs from the published NCPL scale-extrapolation setup.</p>
+          </article>
+          <article class="card">
+            <h3>Nanochat</h3>
+            <p>810 public d8 to d24 runs plus 26 hidden d26 leaderboard runs.</p>
+          </article>
+        </div>
+        <div class="bars" aria-label="Source counts">
+          <div class="bar-row"><span>Marin</span><span class="track"><span class="fill" style="width:43%"></span></span><span>2,549</span></div>
+          <div class="bar-row"><span>StepLaw</span><span class="track"><span class="fill teal" style="width:43%"></span></span><span>2,537</span></div>
+          <div class="bar-row"><span>Nanochat</span><span class="track"><span class="fill red" style="width:14%"></span></span><span>836</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="baselines">
+        <div class="section-head">
+          <h2>Strong tabular baselines, clear NCPL comparison.</h2>
+          <p>The headline comparison uses the identical 1,109-run NCPL OOD validation split, excluding public-val-only calibration sweeps.</p>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Marin final MAE</th>
+              <th>StepLaw final MAE</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Our xgboost_ultimate</strong></td>
+              <td>0.0157</td>
+              <td>0.0169</td>
+              <td>Small tree ensemble baseline trained from JSON features.</td>
+            </tr>
+            <tr>
+              <td>NCPL Neural Ansatz (ft, 1.7B)</td>
+              <td>0.0168</td>
+              <td>0.0223</td>
+              <td>Paper Table 1, same OOD split.</td>
+            </tr>
+            <tr>
+              <td>NCPL XGBoost</td>
+              <td>0.0325</td>
+              <td>0.0246</td>
+              <td>Published tree baseline.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section" id="demo">
+        <div class="section-head">
+          <h2>One-minute local demo.</h2>
+          <p>Install the package, generate Chinchilla predictions on public validation, and score the complete prediction grid.</p>
+        </div>
+        <div class="code">
+          <pre><code>git clone https://github.com/dangxingyu/losscast-bench.git
+cd losscast-bench
+pip install -e .
+
+python -c "
+from losscast_bench.data import load_split
+from losscast_bench.baselines.chinchilla import predict_batch
+from losscast_bench.schema import save_predictions
+
+configs, _ = load_split('val')
+preds = predict_batch(configs)
+save_predictions(preds, 'chinchilla_predictions.json')
+"
+
+losscast-eval --split val -p chinchilla_predictions.json</code></pre>
+          <pre><code>Runs evaluated:    1329
+Total data points: 70518
+
+Huber Loss:        0.003732
+R2:                0.7386
+Curve MAPE:        0.1360
+
+Validation:        PASSED</code></pre>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      LossCast-Bench is MIT licensed. Public data is in GitHub; hidden test runs remain private for leaderboard scoring.
+    </footer>
+  </div>
+</body>
+</html>

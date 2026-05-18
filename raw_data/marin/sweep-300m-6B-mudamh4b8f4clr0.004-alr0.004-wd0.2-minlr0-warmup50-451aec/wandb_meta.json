@@ -1,0 +1,20 @@
+{
+  "wandb_id": "sweep-300m-6B-mudamh4b8f4clr0.004-alr0.004-wd0.2-minlr0-warmup50-451aec",
+  "wandb_name": "sweep-300m-6B-mudamh4b8f4clr0.004-alr0.004-wd0.2-minlr0-warmup50-451aec",
+  "wandb_project": "stanford-mercury/optimizer-scaling",
+  "wandb_url": "https://wandb.ai/stanford-mercury/optimizer-scaling/runs/sweep-300m-6B-mudamh4b8f4clr0.004-alr0.004-wd0.2-minlr0-warmup50-451aec",
+  "state": "finished",
+  "created_at": "2025-07-24T07:30:59Z",
+  "parsed": {
+    "model_size": "300M",
+    "n_params": 300000000.0,
+    "tokens": "6B",
+    "tokens_total": 6000000000.0,
+    "optimizer": "mudam",
+    "lr": 0.004,
+    "wd": 0.2,
+    "warmup": 50,
+    "name": "sweep-300m-6B-mudamh4b8f4clr0.004-alr0.004-wd0.2-minlr0-warmup50-451aec",
+    "id": "sweep-300m-6B-mudamh4b8f4clr0.004-alr0.004-wd0.2-minlr0-warmup50-451aec"
+  }
+}

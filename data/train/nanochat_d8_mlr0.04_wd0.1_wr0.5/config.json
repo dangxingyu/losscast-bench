@@ -1,0 +1,64 @@
+{
+  "run_id": "nanochat_d8_mlr0.04_wd0.1_wr0.5",
+  "model": {
+    "arch": "transformer",
+    "n_layers": 8,
+    "d_model": 512,
+    "n_heads": 4,
+    "n_kv_heads": 4,
+    "head_dim": 128,
+    "d_ff": 2048,
+    "vocab_size": 8192,
+    "activation": "relu2",
+    "norm_type": "rmsnorm",
+    "rope": true,
+    "tied_embeddings": false,
+    "window_pattern": "SSSL"
+  },
+  "optimizer": {
+    "name": "muon_adamw",
+    "lr": 0.04,
+    "weight_decay": 0.1,
+    "beta1": 0.85,
+    "beta2": 0.95,
+    "eps": 1e-08,
+    "grad_clip": null,
+    "extra": {
+      "matrix_lr": 0.04,
+      "embedding_lr": 0.734847,
+      "unembedding_lr": 0.004899,
+      "scalar_lr": 0.5,
+      "muon_ns_steps": 5,
+      "adam_betas": [
+        0.8,
+        0.95
+      ],
+      "dmodel_lr_scale": 1.224745
+    }
+  },
+  "data": {
+    "dataset": "fineweb_edu",
+    "tokenizer": "autoresearch_bpe_8k",
+    "seq_len": 2048,
+    "batch_tokens": 524288,
+    "tokens_total": 492830720,
+    "eval_dataset": "train"
+  },
+  "schedule": {
+    "lr_schedule": "warmup_stable_warmdown",
+    "warmup_steps": 0,
+    "total_steps": 940,
+    "warmdown_ratio": 0.5,
+    "final_lr_ratio": 0.0
+  },
+  "eval_metric": "nats",
+  "precision": "bf16",
+  "hardware": "H100",
+  "dp_size": 1,
+  "device_batch_size": 128,
+  "code_repo": "karpathy/autoresearch",
+  "code_commit": "228791fb499afffb54b46200aca536f79142f117",
+  "extra": {
+    "val_bpb": 0.996353
+  }
+}

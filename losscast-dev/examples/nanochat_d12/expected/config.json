@@ -1,0 +1,59 @@
+{
+  "run_id": "nanochat_d12_fw_muon",
+
+  "model": {
+    "arch": "transformer",
+    "n_layers": 12,
+    "d_model": 768,
+    "n_heads": 6,
+    "n_kv_heads": 6,
+    "head_dim": 128,
+    "d_ff": 3072,
+    "vocab_size": 32768,
+    "activation": "relu2",
+    "norm_type": "rmsnorm",
+    "rope": true,
+    "tied_embeddings": false
+  },
+
+  "optimizer": {
+    "name": "muon_adamw",
+    "lr": 0.02,
+    "weight_decay": 0.28,
+    "beta1": 0.95,
+    "beta2": 0.9,
+    "eps": 1e-10,
+    "grad_clip": null,
+    "mup": false,
+    "extra": {
+      "matrix_lr": 0.02,
+      "embedding_lr": 0.3,
+      "unembedding_lr": 0.008,
+      "scalar_lr": 0.5,
+      "muon_momentum": 0.95,
+      "muon_ns_steps": 5
+    }
+  },
+
+  "data": {
+    "dataset": "fineweb_edu",
+    "tokenizer": "nanochat_bpe_32k",
+    "eval_dataset": "fineweb_edu",
+    "seq_len": 2048,
+    "batch_tokens": 524288,
+    "tokens_total": null,
+    "mix": null
+  },
+
+  "schedule": {
+    "lr_schedule": "warmup_stable_warmdown",
+    "warmup_steps": 40,
+    "total_steps": null,
+    "cooldown_steps": null,
+    "final_lr_ratio": 0.05
+  },
+
+  "eval_interval": 250,
+  "hardware": "8xH100",
+  "precision": "bf16"
+}

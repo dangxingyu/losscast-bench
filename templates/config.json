@@ -1,0 +1,54 @@
+{
+  "run_id": "CONTRIBUTOR_PARAMS_DATASET_SCHEDULE",
+
+  "model": {
+    "arch": "transformer",
+    "n_layers": 12,
+    "d_model": 768,
+    "n_heads": 12,
+    "head_dim": null,
+    "d_ff": null,
+    "vocab_size": 32000,
+    "activation": "swiglu",
+    "norm_type": "rmsnorm",
+    "rope": true,
+    "n_kv_heads": null,
+    "tied_embeddings": false
+  },
+
+  "optimizer": {
+    "name": "adamw",
+    "lr": 3e-4,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "eps": 1e-8,
+    "grad_clip": 1.0,
+    "mup": false
+  },
+
+  "data": {
+    "dataset": "c4",
+    "tokenizer": "gpt2",
+    "seq_len": 2048,
+    "batch_tokens": 524288,
+    "tokens_total": 10e9,
+    "mix": null,
+    "eval_dataset": "fineweb"
+  },
+
+  "schedule": {
+    "lr_schedule": "cosine",
+    "warmup_steps": 2000,
+    "total_steps": 50000,
+    "cooldown_steps": 0,
+    "final_lr_ratio": 0.1
+  },
+
+  "eval_interval": 500,
+
+  "hardware": null,
+  "precision": "bf16",
+  "dp_size": 1,
+  "tp_size": 1
+}

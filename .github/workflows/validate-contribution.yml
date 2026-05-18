@@ -1,0 +1,91 @@
+name: Validate Contribution
+
+on:
+  pull_request:
+    paths:
+      - 'data/**'
+
+jobs:
+  detect-runs:
+    runs-on: ubuntu-latest
+    outputs:
+      run_matrix: ${{ steps.detect.outputs.run_matrix }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed run IDs
+        id: detect
+        run: |
+          # Find which run directories were touched
+          CHANGED=$(git diff --name-only "${{ github.event.pull_request.base.sha }}"...HEAD -- 'data/')
+
+          # Extract run IDs from per-run directory paths
+          # Pattern: data/{split}/{run_id}/config.json (or model.py, losses.json, etc.)
+          RUN_PATHS=$(echo "$CHANGED" | grep -oE '^data/(train|val|test)/[^/]+' | sort -u || true)
+
+          if [ -n "$RUN_PATHS" ]; then
+            RUN_MATRIX=$(echo "$RUN_PATHS" | jq -R -s -c 'split("\n") | map(select(length > 0) | capture("^data/(?<split>[^/]+)/(?<run_id>.+)$"))')
+          else
+            RUN_MATRIX="[]"
+          fi
+
+          echo "run_matrix=$RUN_MATRIX" >> $GITHUB_OUTPUT
+          echo "Detected runs: $RUN_MATRIX"
+
+  validate:
+    needs: detect-runs
+    if: needs.detect-runs.outputs.run_matrix != '[]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -e .
+
+      - name: Validate changed runs
+        env:
+          RUN_MATRIX: ${{ needs.detect-runs.outputs.run_matrix }}
+        run: |
+          while IFS= read -r run; do
+            SPLIT=$(echo "$run" | jq -r '.split')
+            RUN_ID=$(echo "$run" | jq -r '.run_id')
+            RUN_DIR="data/${SPLIT}/${RUN_ID}"
+
+            echo "::group::Validate ${SPLIT}/${RUN_ID}"
+            python scripts/validate_contribution.py \
+              --run-id "$RUN_ID" \
+              --split "$SPLIT"
+            echo "::endgroup::"
+
+            MODEL="${RUN_DIR}/model.py"
+            if [ -f "$MODEL" ]; then
+              if grep -q 'MODEL_CONFIG\|class Model' "$MODEL"; then
+                echo "Running model verification for ${SPLIT}/${RUN_ID}..."
+                python "$MODEL"
+              else
+                echo "model.py appears to be raw source code, skipping runtime verification"
+              fi
+            else
+              echo "No model.py found, skipping runtime verification"
+            fi
+
+            OPT="${RUN_DIR}/optimizer.py"
+            if [ -f "$OPT" ]; then
+              if grep -q 'OPTIMIZER_DEFAULTS' "$OPT"; then
+                echo "Running optimizer verification for ${SPLIT}/${RUN_ID}..."
+                python "$OPT"
+              else
+                echo "optimizer.py appears to be raw source code, skipping runtime verification"
+              fi
+            else
+              echo "No optimizer.py, skipping"
+            fi
+          done < <(echo "$RUN_MATRIX" | jq -c '.[]')

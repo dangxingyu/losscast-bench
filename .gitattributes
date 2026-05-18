@@ -1,0 +1,2 @@
+# Ensure consistent line endings for JSON data
+data/**/*.json text eol=lf

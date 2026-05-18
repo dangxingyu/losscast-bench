@@ -1,0 +1,19 @@
+{
+  "wandb_id": "sweep-130m-21B-shamqaf905clr0.008-alr0.008-wd0.2-minlr0-warmup50-96fc08",
+  "wandb_name": "sweep-130m-21B-shamqaf905clr0.008-alr0.008-wd0.2-minlr0-warmup50-96fc08",
+  "wandb_project": "stanford-mercury/optimizer-scaling",
+  "wandb_url": "https://wandb.ai/stanford-mercury/optimizer-scaling/runs/sweep-130m-21B-shamqaf905clr0.008-alr0.008-wd0.2-minlr0-warmup50-96fc08",
+  "state": "finished",
+  "created_at": "2025-08-21T03:12:55Z",
+  "parsed": {
+    "model_size": "130M",
+    "n_params": 130000000.0,
+    "tokens": "21B",
+    "tokens_total": 21000000000.0,
+    "lr": 0.008,
+    "wd": 0.2,
+    "warmup": 50,
+    "name": "sweep-130m-21B-shamqaf905clr0.008-alr0.008-wd0.2-minlr0-warmup50-96fc08",
+    "id": "sweep-130m-21B-shamqaf905clr0.008-alr0.008-wd0.2-minlr0-warmup50-96fc08"
+  }
+}

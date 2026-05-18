@@ -1,0 +1,41 @@
+{
+  "run_id": "ncpl_marin_sweep-1.2b-24B-soapeweightf32d04f58lr0.004-wd0.1-minlr0.0-warmup-f1661b",
+  "model": {
+    "arch": "transformer",
+    "n_layers": 32,
+    "d_model": 1536,
+    "n_heads": 24,
+    "d_ff": 4096,
+    "vocab_size": 32000,
+    "activation": "swiglu",
+    "norm_type": "rmsnorm",
+    "rope": true
+  },
+  "optimizer": {
+    "name": "soap",
+    "lr": 0.004,
+    "weight_decay": 0.1,
+    "beta1": 0.95,
+    "beta2": 0.99,
+    "eps": 1e-10,
+    "grad_clip": 1
+  },
+  "data": {
+    "dataset": "dolma",
+    "tokenizer": "EleutherAI/gpt-neox-20b",
+    "eval_dataset": "c4_en",
+    "seq_len": 512,
+    "batch_tokens": 131072,
+    "tokens_total": 3019767808
+  },
+  "schedule": {
+    "lr_schedule": "cosine",
+    "warmup_steps": 1000,
+    "total_steps": 23039,
+    "cooldown_steps": 0,
+    "final_lr_ratio": 0.0
+  },
+  "eval_interval": 1000,
+  "precision": "bf16",
+  "n_params": 1200000000.0
+}

@@ -1,0 +1,17 @@
+{
+  "wandb_id": "nrzntf9h",
+  "wandb_name": "sweep-300m-24B-mudam-manual-Another-Muon-light-0.5-adam-lr",
+  "wandb_project": "stanford-mercury/optimizer-scaling",
+  "wandb_url": "https://wandb.ai/stanford-mercury/optimizer-scaling/runs/nrzntf9h",
+  "state": "finished",
+  "created_at": "2025-08-27T06:10:55Z",
+  "parsed": {
+    "model_size": "300M",
+    "n_params": 300000000.0,
+    "tokens": "24B",
+    "tokens_total": 24000000000.0,
+    "optimizer": "adam",
+    "name": "sweep-300m-24B-mudam-manual-Another-Muon-light-0.5-adam-lr",
+    "id": "nrzntf9h"
+  }
+}

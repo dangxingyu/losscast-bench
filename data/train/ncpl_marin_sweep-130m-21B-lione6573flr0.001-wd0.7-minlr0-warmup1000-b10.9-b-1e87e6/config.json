@@ -1,0 +1,41 @@
+{
+  "run_id": "ncpl_marin_sweep-130m-21B-lione6573flr0.001-wd0.7-minlr0-warmup1000-b10.9-b-1e87e6",
+  "model": {
+    "arch": "transformer",
+    "n_layers": 32,
+    "d_model": 512,
+    "n_heads": 8,
+    "d_ff": 1365,
+    "vocab_size": 32000,
+    "activation": "swiglu",
+    "norm_type": "rmsnorm",
+    "rope": true
+  },
+  "optimizer": {
+    "name": "lion",
+    "lr": 0.001,
+    "weight_decay": 0.7,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "eps": 1e-08,
+    "grad_clip": 1
+  },
+  "data": {
+    "dataset": "dolma",
+    "tokenizer": "EleutherAI/gpt-neox-20b",
+    "eval_dataset": "c4_en",
+    "seq_len": 2048,
+    "batch_tokens": 262144,
+    "tokens_total": 10738466816
+  },
+  "schedule": {
+    "lr_schedule": "cosine",
+    "warmup_steps": 1000,
+    "total_steps": 40964,
+    "cooldown_steps": 0,
+    "final_lr_ratio": 0.0
+  },
+  "eval_interval": 1000,
+  "precision": "bf16",
+  "n_params": 130000000.0
+}

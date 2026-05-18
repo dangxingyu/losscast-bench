@@ -1,0 +1,21 @@
+{
+  "wandb_id": "sweep-130m-2B-mudam093d8elr0.008-wd0.2-minlr0-warmup1000-sb10.95-7dbc49",
+  "wandb_name": "sweep-130m-2B-mudam093d8elr0.008-wd0.2-minlr0-warmup1000-sb10.95-7dbc49",
+  "wandb_project": "stanford-mercury/optimizer-scaling",
+  "wandb_url": "https://wandb.ai/stanford-mercury/optimizer-scaling/runs/sweep-130m-2B-mudam093d8elr0.008-wd0.2-minlr0-warmup1000-sb10.95-7dbc49",
+  "state": "finished",
+  "created_at": "2025-07-20T02:25:41Z",
+  "parsed": {
+    "model_size": "130M",
+    "n_params": 130000000.0,
+    "tokens": "2B",
+    "tokens_total": 2000000000.0,
+    "optimizer": "mudam",
+    "lr": 0.008,
+    "wd": 0.2,
+    "warmup": 1000,
+    "beta2": 0.95,
+    "name": "sweep-130m-2B-mudam093d8elr0.008-wd0.2-minlr0-warmup1000-sb10.95-7dbc49",
+    "id": "sweep-130m-2B-mudam093d8elr0.008-wd0.2-minlr0-warmup1000-sb10.95-7dbc49"
+  }
+}

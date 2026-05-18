@@ -1,0 +1,16 @@
+{
+  "wandb_id": "skycchxe",
+  "wandb_name": "sweep-520m-10B-mudam-manual-Another-Muon-light",
+  "wandb_project": "stanford-mercury/optimizer-scaling",
+  "wandb_url": "https://wandb.ai/stanford-mercury/optimizer-scaling/runs/skycchxe",
+  "state": "finished",
+  "created_at": "2025-08-26T17:17:08Z",
+  "parsed": {
+    "model_size": "520M",
+    "n_params": 520000000.0,
+    "tokens": "10B",
+    "tokens_total": 10000000000.0,
+    "name": "sweep-520m-10B-mudam-manual-Another-Muon-light",
+    "id": "skycchxe"
+  }
+}

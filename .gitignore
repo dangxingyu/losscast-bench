@@ -1,0 +1,35 @@
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+.pytest_cache/
+*.lock
+dist/
+build/
+code-rewriter-eval-review.html
+
+# Legacy monolithic data files (replaced by per-run directories)
+data/*/configs.json
+data/*/ground_truth.json
+data/val/chinchilla_preds.json
+data/train/code/
+
+# Root-level skills dir (canonical location is .claude/skills/)
+skills/
+
+# Large WandB history files (100MB+)
+raw_data/**/wandb_history.json
+
+# Hidden leaderboard data stays outside the public repository
+data/test/
+
+# Fitted baseline artifacts (regenerate via scripts/train_*.py)
+baselines/*.pkl
+baselines/*.npz
+baselines/*.pt
+baselines/chinchilla_refit.json
+baselines/*_predictions.json
+baselines/*.report.json
+baselines/xgboost_ultimate/
+catboost_info/

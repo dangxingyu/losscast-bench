@@ -1,0 +1,16 @@
+{
+  "wandb_id": "zsxlqjx8",
+  "wandb_name": "sweep-300m-6B-mudam-manual-Another-Muon",
+  "wandb_project": "stanford-mercury/optimizer-scaling",
+  "wandb_url": "https://wandb.ai/stanford-mercury/optimizer-scaling/runs/zsxlqjx8",
+  "state": "finished",
+  "created_at": "2025-08-26T01:25:32Z",
+  "parsed": {
+    "model_size": "300M",
+    "n_params": 300000000.0,
+    "tokens": "6B",
+    "tokens_total": 6000000000.0,
+    "name": "sweep-300m-6B-mudam-manual-Another-Muon",
+    "id": "zsxlqjx8"
+  }
+}

@@ -1,0 +1,103 @@
+=== STDOUT ===
+Vocab size: 8,192
+Model config: {'sequence_len': 2048, 'vocab_size': 8192, 'n_layer': 24, 'n_head': 12, 'n_kv_head': 12, 'n_embd': 1536, 'window_pattern': 'SSSL'}
+Parameter counts:
+  wte                     : 12,582,912
+  value_embeds            : 150,994,944
+  lm_head                 : 12,582,912
+  transformer_matrices    : 679,481,856
+  scalars                 : 48
+  total                   : 855,642,672
+Estimated FLOPs per token: 4.718620e+09
+Scaling AdamW LRs by 1/sqrt(1536/768) = 0.707107
+Time budget: 300s
+Gradient accumulation steps: 16
+
+step 00000 (0.0%) | loss: 9.011511 | lrm: 1.00 | dt: 38418ms | tok/sec: 13,646 | mfu: 6.5% | epoch: 1 | remaining: 300s    
+step 00001 (0.0%) | loss: 8.699880 | lrm: 1.00 | dt: 4726ms | tok/sec: 110,934 | mfu: 52.9% | epoch: 1 | remaining: 300s    
+step 00002 (0.0%) | loss: 8.117186 | lrm: 1.00 | dt: 4733ms | tok/sec: 110,779 | mfu: 52.8% | epoch: 1 | remaining: 300s    
+step 00003 (0.0%) | loss: 7.672081 | lrm: 1.00 | dt: 4745ms | tok/sec: 110,491 | mfu: 52.7% | epoch: 1 | remaining: 300s    
+step 00004 (0.0%) | loss: 7.259397 | lrm: 1.00 | dt: 4754ms | tok/sec: 110,277 | mfu: 52.6% | epoch: 1 | remaining: 300s    
+step 00005 (0.0%) | loss: 6.978725 | lrm: 1.00 | dt: 4758ms | tok/sec: 110,184 | mfu: 52.5% | epoch: 1 | remaining: 300s    
+step 00006 (0.0%) | loss: 6.744496 | lrm: 1.00 | dt: 4751ms | tok/sec: 110,356 | mfu: 52.6% | epoch: 1 | remaining: 300s    
+step 00007 (0.0%) | loss: 6.551797 | lrm: 1.00 | dt: 4764ms | tok/sec: 110,048 | mfu: 52.5% | epoch: 1 | remaining: 300s    
+step 00008 (0.0%) | loss: 6.391209 | lrm: 1.00 | dt: 4757ms | tok/sec: 110,214 | mfu: 52.6% | epoch: 1 | remaining: 300s    
+step 00009 (0.0%) | loss: 6.252033 | lrm: 1.00 | dt: 4754ms | tok/sec: 110,278 | mfu: 52.6% | epoch: 1 | remaining: 300s    
+step 00010 (0.0%) | loss: 6.132481 | lrm: 1.00 | dt: 4744ms | tok/sec: 110,514 | mfu: 52.7% | epoch: 1 | remaining: 300s    
+step 00011 (0.0%) | loss: 6.036342 | lrm: 1.00 | dt: 4753ms | tok/sec: 110,301 | mfu: 52.6% | epoch: 1 | remaining: 295s    
+step 00012 (1.6%) | loss: 5.946185 | lrm: 1.00 | dt: 4755ms | tok/sec: 110,255 | mfu: 52.6% | epoch: 1 | remaining: 290s    
+step 00013 (3.2%) | loss: 5.873264 | lrm: 1.00 | dt: 4749ms | tok/sec: 110,399 | mfu: 52.6% | epoch: 1 | remaining: 286s    
+step 00014 (4.8%) | loss: 5.816285 | lrm: 1.00 | dt: 4741ms | tok/sec: 110,592 | mfu: 52.7% | epoch: 1 | remaining: 281s    
+step 00015 (6.3%) | loss: 5.755628 | lrm: 1.00 | dt: 4741ms | tok/sec: 110,587 | mfu: 52.7% | epoch: 1 | remaining: 276s    
+step 00016 (7.9%) | loss: 5.694352 | lrm: 1.00 | dt: 4741ms | tok/sec: 110,580 | mfu: 52.7% | epoch: 1 | remaining: 272s    
+step 00017 (9.5%) | loss: 5.637698 | lrm: 1.00 | dt: 4744ms | tok/sec: 110,510 | mfu: 52.7% | epoch: 1 | remaining: 267s    
+step 00018 (11.1%) | loss: 5.593684 | lrm: 1.00 | dt: 4741ms | tok/sec: 110,581 | mfu: 52.7% | epoch: 1 | remaining: 262s    
+step 00019 (12.7%) | loss: 5.548671 | lrm: 1.00 | dt: 4737ms | tok/sec: 110,675 | mfu: 52.8% | epoch: 1 | remaining: 257s    
+step 00020 (14.2%) | loss: 5.501888 | lrm: 1.00 | dt: 4732ms | tok/sec: 110,798 | mfu: 52.8% | epoch: 1 | remaining: 253s    
+step 00021 (15.8%) | loss: 5.458844 | lrm: 1.00 | dt: 4729ms | tok/sec: 110,861 | mfu: 52.9% | epoch: 1 | remaining: 248s    
+step 00022 (17.4%) | loss: 5.426745 | lrm: 1.00 | dt: 4726ms | tok/sec: 110,941 | mfu: 52.9% | epoch: 1 | remaining: 243s    
+step 00023 (19.0%) | loss: 5.398418 | lrm: 1.00 | dt: 4732ms | tok/sec: 110,793 | mfu: 52.8% | epoch: 1 | remaining: 238s    
+step 00024 (20.5%) | loss: 5.360232 | lrm: 0.99 | dt: 4727ms | tok/sec: 110,918 | mfu: 52.9% | epoch: 1 | remaining: 234s    
+step 00025 (22.1%) | loss: 5.321025 | lrm: 0.97 | dt: 4729ms | tok/sec: 110,877 | mfu: 52.9% | epoch: 1 | remaining: 229s    
+step 00026 (23.7%) | loss: 5.286506 | lrm: 0.95 | dt: 4733ms | tok/sec: 110,777 | mfu: 52.8% | epoch: 1 | remaining: 224s    
+step 00027 (25.3%) | loss: 5.243507 | lrm: 0.93 | dt: 4739ms | tok/sec: 110,630 | mfu: 52.8% | epoch: 1 | remaining: 219s    
+step 00028 (26.8%) | loss: 5.218415 | lrm: 0.91 | dt: 4732ms | tok/sec: 110,788 | mfu: 52.8% | epoch: 1 | remaining: 215s    
+step 00029 (28.4%) | loss: 5.184140 | lrm: 0.89 | dt: 4736ms | tok/sec: 110,707 | mfu: 52.8% | epoch: 1 | remaining: 210s    
+step 00030 (30.0%) | loss: 5.152578 | lrm: 0.87 | dt: 4730ms | tok/sec: 110,832 | mfu: 52.9% | epoch: 1 | remaining: 205s    
+step 00031 (31.6%) | loss: 5.120008 | lrm: 0.86 | dt: 4721ms | tok/sec: 111,055 | mfu: 53.0% | epoch: 1 | remaining: 201s    
+step 00032 (33.2%) | loss: 5.088400 | lrm: 0.84 | dt: 4726ms | tok/sec: 110,937 | mfu: 52.9% | epoch: 1 | remaining: 196s    
+step 00033 (34.7%) | loss: 5.060242 | lrm: 0.82 | dt: 4730ms | tok/sec: 110,838 | mfu: 52.9% | epoch: 1 | remaining: 191s    
+step 00034 (36.3%) | loss: 5.029478 | lrm: 0.80 | dt: 4724ms | tok/sec: 110,989 | mfu: 52.9% | epoch: 1 | remaining: 186s    
+step 00035 (37.9%) | loss: 5.003187 | lrm: 0.78 | dt: 4737ms | tok/sec: 110,690 | mfu: 52.8% | epoch: 1 | remaining: 182s    
+step 00036 (39.5%) | loss: 4.968908 | lrm: 0.76 | dt: 4726ms | tok/sec: 110,944 | mfu: 52.9% | epoch: 1 | remaining: 177s    
+step 00037 (41.0%) | loss: 4.937775 | lrm: 0.74 | dt: 4730ms | tok/sec: 110,854 | mfu: 52.9% | epoch: 1 | remaining: 172s    
+step 00038 (42.6%) | loss: 4.905757 | lrm: 0.72 | dt: 4738ms | tok/sec: 110,665 | mfu: 52.8% | epoch: 1 | remaining: 167s    
+step 00039 (44.2%) | loss: 4.872335 | lrm: 0.70 | dt: 4733ms | tok/sec: 110,763 | mfu: 52.8% | epoch: 1 | remaining: 163s    
+step 00040 (45.8%) | loss: 4.847569 | lrm: 0.68 | dt: 4725ms | tok/sec: 110,962 | mfu: 52.9% | epoch: 1 | remaining: 158s    
+step 00041 (47.3%) | loss: 4.818376 | lrm: 0.66 | dt: 4733ms | tok/sec: 110,772 | mfu: 52.8% | epoch: 1 | remaining: 153s    
+step 00042 (48.9%) | loss: 4.789663 | lrm: 0.64 | dt: 4731ms | tok/sec: 110,818 | mfu: 52.8% | epoch: 1 | remaining: 148s    
+step 00043 (50.5%) | loss: 4.756589 | lrm: 0.62 | dt: 4737ms | tok/sec: 110,682 | mfu: 52.8% | epoch: 1 | remaining: 144s    
+step 00044 (52.1%) | loss: 4.723049 | lrm: 0.60 | dt: 4738ms | tok/sec: 110,659 | mfu: 52.8% | epoch: 1 | remaining: 139s    
+step 00045 (53.7%) | loss: 4.707436 | lrm: 0.58 | dt: 4731ms | tok/sec: 110,830 | mfu: 52.9% | epoch: 1 | remaining: 134s    
+step 00046 (55.2%) | loss: 4.676021 | lrm: 0.56 | dt: 4738ms | tok/sec: 110,648 | mfu: 52.8% | epoch: 1 | remaining: 130s    
+step 00047 (56.8%) | loss: 4.634166 | lrm: 0.54 | dt: 4737ms | tok/sec: 110,679 | mfu: 52.8% | epoch: 1 | remaining: 125s    
+step 00048 (58.4%) | loss: 4.615757 | lrm: 0.52 | dt: 4735ms | tok/sec: 110,729 | mfu: 52.8% | epoch: 1 | remaining: 120s    
+step 00049 (60.0%) | loss: 4.579349 | lrm: 0.50 | dt: 4752ms | tok/sec: 110,340 | mfu: 52.6% | epoch: 1 | remaining: 115s    
+step 00050 (61.6%) | loss: 4.546573 | lrm: 0.48 | dt: 4750ms | tok/sec: 110,367 | mfu: 52.6% | epoch: 1 | remaining: 111s    
+step 00051 (63.1%) | loss: 4.528593 | lrm: 0.46 | dt: 4746ms | tok/sec: 110,480 | mfu: 52.7% | epoch: 1 | remaining: 106s    
+step 00052 (64.7%) | loss: 4.488703 | lrm: 0.44 | dt: 4743ms | tok/sec: 110,541 | mfu: 52.7% | epoch: 1 | remaining: 101s    
+step 00053 (66.3%) | loss: 4.463365 | lrm: 0.42 | dt: 4742ms | tok/sec: 110,565 | mfu: 52.7% | epoch: 1 | remaining: 96s    
+step 00054 (67.9%) | loss: 4.443908 | lrm: 0.40 | dt: 4745ms | tok/sec: 110,481 | mfu: 52.7% | epoch: 1 | remaining: 92s    
+step 00055 (69.5%) | loss: 4.403543 | lrm: 0.38 | dt: 4742ms | tok/sec: 110,563 | mfu: 52.7% | epoch: 1 | remaining: 87s    
+step 00056 (71.0%) | loss: 4.376936 | lrm: 0.36 | dt: 4741ms | tok/sec: 110,595 | mfu: 52.7% | epoch: 1 | remaining: 82s    
+step 00057 (72.6%) | loss: 4.353459 | lrm: 0.34 | dt: 4741ms | tok/sec: 110,584 | mfu: 52.7% | epoch: 1 | remaining: 77s    
+step 00058 (74.2%) | loss: 4.316760 | lrm: 0.32 | dt: 4745ms | tok/sec: 110,499 | mfu: 52.7% | epoch: 1 | remaining: 73s    
+step 00059 (75.8%) | loss: 4.290133 | lrm: 0.30 | dt: 4736ms | tok/sec: 110,713 | mfu: 52.8% | epoch: 1 | remaining: 68s    
+step 00060 (77.4%) | loss: 4.259058 | lrm: 0.28 | dt: 4752ms | tok/sec: 110,335 | mfu: 52.6% | epoch: 1 | remaining: 63s    
+step 00061 (78.9%) | loss: 4.230761 | lrm: 0.26 | dt: 4743ms | tok/sec: 110,529 | mfu: 52.7% | epoch: 1 | remaining: 58s    
+step 00062 (80.5%) | loss: 4.217115 | lrm: 0.24 | dt: 4758ms | tok/sec: 110,184 | mfu: 52.5% | epoch: 1 | remaining: 54s    
+step 00063 (82.1%) | loss: 4.194704 | lrm: 0.22 | dt: 4748ms | tok/sec: 110,422 | mfu: 52.7% | epoch: 1 | remaining: 49s    
+step 00064 (83.7%) | loss: 4.172738 | lrm: 0.20 | dt: 4749ms | tok/sec: 110,391 | mfu: 52.6% | epoch: 1 | remaining: 44s    
+step 00065 (85.3%) | loss: 4.132085 | lrm: 0.18 | dt: 4758ms | tok/sec: 110,196 | mfu: 52.5% | epoch: 1 | remaining: 39s    
+step 00066 (86.9%) | loss: 4.114012 | lrm: 0.16 | dt: 4751ms | tok/sec: 110,349 | mfu: 52.6% | epoch: 1 | remaining: 35s    
+step 00067 (88.5%) | loss: 4.095978 | lrm: 0.14 | dt: 4754ms | tok/sec: 110,273 | mfu: 52.6% | epoch: 1 | remaining: 30s    
+step 00068 (90.0%) | loss: 4.079618 | lrm: 0.12 | dt: 4751ms | tok/sec: 110,351 | mfu: 52.6% | epoch: 1 | remaining: 25s    
+step 00069 (91.6%) | loss: 4.073449 | lrm: 0.10 | dt: 4754ms | tok/sec: 110,272 | mfu: 52.6% | epoch: 1 | remaining: 20s    
+step 00070 (93.2%) | loss: 4.054205 | lrm: 0.08 | dt: 4759ms | tok/sec: 110,171 | mfu: 52.5% | epoch: 1 | remaining: 16s    
+step 00071 (94.8%) | loss: 4.042357 | lrm: 0.07 | dt: 4754ms | tok/sec: 110,289 | mfu: 52.6% | epoch: 1 | remaining: 11s    
+step 00072 (96.4%) | loss: 4.016787 | lrm: 0.05 | dt: 4756ms | tok/sec: 110,239 | mfu: 52.6% | epoch: 1 | remaining: 6s    
+step 00073 (98.0%) | loss: 3.991769 | lrm: 0.03 | dt: 4762ms | tok/sec: 110,097 | mfu: 52.5% | epoch: 1 | remaining: 1s    
+step 00074 (99.5%) | loss: 3.971554 | lrm: 0.01 | dt: 4761ms | tok/sec: 110,131 | mfu: 52.5% | epoch: 1 | remaining: 0s    
+---
+val_bpb:          1.377259
+training_seconds: 303.4
+total_seconds:    465.5
+peak_vram_mb:     56318.5
+mfu_percent:      53.56
+total_tokens_M:   39.3
+num_steps:        75
+num_params_M:     855.6
+depth:            24
+
+
+=== STDERR ===

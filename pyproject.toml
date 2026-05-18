@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "losscast-bench"
+version = "0.1.0"
+description = "A benchmark and challenge for loss curve prediction in neural network training"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+xgboost = ["xgboost>=2.0", "numpy>=1.24", "scikit-learn>=1.3", "scipy>=1.10"]
+catboost = ["catboost>=1.2"]
+lightgbm = ["lightgbm>=4.0"]
+
+[project.scripts]
+losscast-eval = "scripts.eval_cli:main"
+
+[tool.setuptools.packages.find]
+include = ["losscast_bench*", "scripts*"]

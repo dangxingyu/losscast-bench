@@ -1,0 +1,41 @@
+{
+  "run_id": "ncpl_steplaw_step2v2_0618_h960_ffnh9368_numh15_numl7_lr7.812e-03_bs736_ti66342_mlr1.00e-05",
+  "model": {
+    "arch": "transformer",
+    "vocab_size": 50257,
+    "d_model": 960,
+    "d_ff": 9368,
+    "n_heads": 15,
+    "n_layers": 7,
+    "activation": "gelu",
+    "norm_type": "layernorm",
+    "rope": false
+  },
+  "optimizer": {
+    "name": "adamw",
+    "lr": 0.007812,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "eps": 1e-08,
+    "grad_clip": 1.0
+  },
+  "data": {
+    "dataset": "openwebtext",
+    "tokenizer": "gpt2",
+    "eval_dataset": "train",
+    "seq_len": 1024,
+    "batch_tokens": 753664,
+    "tokens_total": 49998823424
+  },
+  "schedule": {
+    "lr_schedule": "cosine",
+    "warmup_steps": 2000,
+    "total_steps": 66341,
+    "cooldown_steps": 0,
+    "final_lr_ratio": 0.0012800819252432156
+  },
+  "eval_interval": 1000,
+  "precision": "bf16",
+  "n_params": 199957440
+}

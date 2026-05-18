@@ -1,0 +1,41 @@
+{
+  "run_id": "ncpl_marin_sweep-520m-42B-mars5f83cclr0.008-wd0.1-minlr0-warmup4000-b10.95--d5771f",
+  "model": {
+    "arch": "transformer",
+    "n_layers": 32,
+    "d_model": 1024,
+    "n_heads": 16,
+    "d_ff": 2730,
+    "vocab_size": 32000,
+    "activation": "swiglu",
+    "norm_type": "rmsnorm",
+    "rope": true
+  },
+  "optimizer": {
+    "name": "mars",
+    "lr": 0.008,
+    "weight_decay": 0.1,
+    "beta1": 0.95,
+    "beta2": 0.98,
+    "eps": 1e-25,
+    "grad_clip": 1
+  },
+  "data": {
+    "dataset": "dolma",
+    "tokenizer": "EleutherAI/gpt-neox-20b",
+    "eval_dataset": "c4_en",
+    "seq_len": 2048,
+    "batch_tokens": 524288,
+    "tokens_total": 21476933632
+  },
+  "schedule": {
+    "lr_schedule": "cosine",
+    "warmup_steps": 4000,
+    "total_steps": 40964,
+    "cooldown_steps": 0,
+    "final_lr_ratio": 0.0
+  },
+  "eval_interval": 1000,
+  "precision": "bf16",
+  "n_params": 520000000.0
+}

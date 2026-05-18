@@ -1,0 +1,41 @@
+{
+  "run_id": "ncpl_marin_sweep-130m-21B-scionk6861bflr0.008-wd0.1-minlr0-warmup0-b10.98-g-c52551",
+  "model": {
+    "arch": "transformer",
+    "n_layers": 32,
+    "d_model": 512,
+    "n_heads": 8,
+    "d_ff": 1365,
+    "vocab_size": 32000,
+    "activation": "swiglu",
+    "norm_type": "rmsnorm",
+    "rope": true
+  },
+  "optimizer": {
+    "name": "scion",
+    "lr": 0.008,
+    "weight_decay": 0.1,
+    "beta1": 0.98,
+    "beta2": null,
+    "eps": 1e-08,
+    "grad_clip": 2
+  },
+  "data": {
+    "dataset": "dolma",
+    "tokenizer": "EleutherAI/gpt-neox-20b",
+    "eval_dataset": "c4_en",
+    "seq_len": 2048,
+    "batch_tokens": 262144,
+    "tokens_total": 10737156096
+  },
+  "schedule": {
+    "lr_schedule": "linear",
+    "warmup_steps": 0,
+    "total_steps": 40959,
+    "cooldown_steps": 0,
+    "final_lr_ratio": 0.0
+  },
+  "eval_interval": 1000,
+  "precision": "bf16",
+  "n_params": 130000000.0
+}
