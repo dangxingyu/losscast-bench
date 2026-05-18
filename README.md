@@ -4,11 +4,17 @@ A living benchmark and open dataset for building a **world model of deep learnin
 
 Given a fully specified training configuration — architecture, optimizer, data, schedule — predict the loss at every evaluation checkpoint, including the final loss, **before running the experiment**.
 
+[Project page](https://dangxingyu.github.io/losscast-bench/) ·
+[GitHub repository](https://github.com/dangxingyu/losscast-bench) ·
+[Data format](docs/data.md) ·
+[Predictor guide](PREDICT.md)
+
 ## Current Snapshot
 
 | What | Status |
 |---|---|
-| Project page | https://dangxingyu.github.io/losscast-bench/ |
+| Project page | [dangxingyu.github.io/losscast-bench](https://dangxingyu.github.io/losscast-bench/) |
+| Repository | [github.com/dangxingyu/losscast-bench](https://github.com/dangxingyu/losscast-bench) |
 | Dataset | **5,896 public train/val runs** plus **26 hidden test runs** |
 | Public split | **4,567 train** + **1,329 validation** runs |
 | Validation target | Public OOD validation with **70,518 scored `(run, step)` points** |
@@ -26,7 +32,7 @@ curve from the recipe alone.
 You have loss curves from pretraining runs. Contribute them to the benchmark — tell your agent:
 
 ```
-Read https://raw.githubusercontent.com/xingyudang/losscast-bench/main/CONTRIBUTE.md and follow the instructions to submit a training run.
+Read https://raw.githubusercontent.com/dangxingyu/losscast-bench/master/CONTRIBUTE.md and follow the instructions to submit a training run.
 ```
 
 ### I want to predict loss curves (or build a world model)
@@ -34,7 +40,7 @@ Read https://raw.githubusercontent.com/xingyudang/losscast-bench/main/CONTRIBUTE
 You want to train a predictor on the dataset and submit to the leaderboard — tell your agent:
 
 ```
-Read https://raw.githubusercontent.com/xingyudang/losscast-bench/main/PREDICT.md and follow the instructions to build and evaluate a loss predictor.
+Read https://raw.githubusercontent.com/dangxingyu/losscast-bench/master/PREDICT.md and follow the instructions to build and evaluate a loss predictor.
 ```
 
 ## Why This Exists
@@ -59,7 +65,7 @@ Side benefits: the dataset doubles as a registry of what's been tried (check bef
 ## One-Minute Demo
 
 ```bash
-git clone https://github.com/xingyudang/losscast-bench.git
+git clone https://github.com/dangxingyu/losscast-bench.git
 cd losscast-bench
 pip install -e .  # or: uv pip install -e .
 
