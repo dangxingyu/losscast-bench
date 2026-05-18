@@ -455,7 +455,12 @@
 
     .leaderboard-table td:first-child {
       white-space: normal;
-      min-width: 170px;
+      min-width: 210px;
+    }
+
+    .not-reported {
+      color: var(--muted);
+      font-weight: 650;
     }
 
     th,
@@ -753,7 +758,7 @@
       <section class="section" id="baselines">
         <div class="section-head">
           <h2>Leaderboard snapshot.</h2>
-          <p>Curve-wide validation metrics on the identical 1,109-run NCPL OOD split, excluding public-val-only calibration sweeps.</p>
+          <p>Curve-wide validation metrics on the identical 1,109-run NCPL OOD split. NCPL paper rows report final-step only; Final ρ is Marin / StepLaw.</p>
         </div>
         <div class="table-wrap">
           <table class="leaderboard-table">
@@ -804,6 +809,51 @@
                 <td data-label="Curve MAE">0.3771</td>
                 <td data-label="Final MAE">0.3852</td>
                 <td data-label="Final ρ">0.529</td>
+              </tr>
+              <tr>
+                <td data-label="Method">NCPL Neural Ansatz (ft, 1.7B)</td>
+                <td data-label="Huber" class="not-reported">n/r</td>
+                <td data-label="R²" class="not-reported">n/r</td>
+                <td data-label="MAPE" class="not-reported">n/r</td>
+                <td data-label="Curve MAE" class="not-reported">n/r</td>
+                <td data-label="Final MAE">0.0202</td>
+                <td data-label="Final ρ">0.930 / 0.984</td>
+              </tr>
+              <tr>
+                <td data-label="Method">NCPL Neural Ansatz (scratch, 1.7B)</td>
+                <td data-label="Huber" class="not-reported">n/r</td>
+                <td data-label="R²" class="not-reported">n/r</td>
+                <td data-label="MAPE" class="not-reported">n/r</td>
+                <td data-label="Curve MAE" class="not-reported">n/r</td>
+                <td data-label="Final MAE">0.0218</td>
+                <td data-label="Final ρ">0.932 / 0.988</td>
+              </tr>
+              <tr>
+                <td data-label="Method">NCPL Neural Ansatz (scratch, 135M)</td>
+                <td data-label="Huber" class="not-reported">n/r</td>
+                <td data-label="R²" class="not-reported">n/r</td>
+                <td data-label="MAPE" class="not-reported">n/r</td>
+                <td data-label="Curve MAE" class="not-reported">n/r</td>
+                <td data-label="Final MAE">0.0224</td>
+                <td data-label="Final ρ">0.942 / 0.991</td>
+              </tr>
+              <tr>
+                <td data-label="Method">NCPL XGBoost</td>
+                <td data-label="Huber" class="not-reported">n/r</td>
+                <td data-label="R²" class="not-reported">n/r</td>
+                <td data-label="MAPE" class="not-reported">n/r</td>
+                <td data-label="Curve MAE" class="not-reported">n/r</td>
+                <td data-label="Final MAE">0.0276</td>
+                <td data-label="Final ρ">0.923 / 0.986</td>
+              </tr>
+              <tr>
+                <td data-label="Method">NCPL Chinchilla (refit)</td>
+                <td data-label="Huber" class="not-reported">n/r</td>
+                <td data-label="R²" class="not-reported">n/r</td>
+                <td data-label="MAPE" class="not-reported">n/r</td>
+                <td data-label="Curve MAE" class="not-reported">n/r</td>
+                <td data-label="Final MAE">0.0365</td>
+                <td data-label="Final ρ">0.767 / 0.914</td>
               </tr>
             </tbody>
           </table>
