@@ -25,19 +25,28 @@ The benchmark is meant to be useful at two levels: as an open dataset of real
 training runs, and as a challenge for predictors that can forecast a full loss
 curve from the recipe alone.
 
-## Get Started
+## Choose Your Path
 
-### I'm running training experiments (or my agent is)
+LossCast-Bench has two entry points. One side grows the dataset with real
+pretraining runs; the other side builds predictors that turn those runs into a
+world model of training.
 
-You have loss curves from pretraining runs. Contribute them to the benchmark — tell your agent:
+| I run pretraining | I build predictors |
+|---|---|
+| Contribute a real training recipe, loss curve, and optional code snapshot. | Train on public runs and submit a predictor for full loss trajectories. |
+| Start with [CONTRIBUTE.md](CONTRIBUTE.md). | Start with [PREDICT.md](PREDICT.md). |
+
+### I run pretraining
+
+You have loss curves from pretraining runs. Contribute them to the benchmark. Tell your agent:
 
 ```
 Read https://raw.githubusercontent.com/dangxingyu/losscast-bench/master/CONTRIBUTE.md and follow the instructions to submit a training run.
 ```
 
-### I want to predict loss curves (or build a world model)
+### I build predictors
 
-You want to train a predictor on the dataset and submit to the leaderboard — tell your agent:
+You want to train a predictor on the dataset and submit to the leaderboard. Tell your agent:
 
 ```
 Read https://raw.githubusercontent.com/dangxingyu/losscast-bench/master/PREDICT.md and follow the instructions to build and evaluate a loss predictor.

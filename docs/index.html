@@ -263,6 +263,86 @@
       gap: 18px;
     }
 
+    .paths {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .path-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      min-width: 0;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 28px;
+    }
+
+    .path-card > * {
+      min-width: 0;
+    }
+
+    .path-card h3 {
+      margin: 0;
+      font-size: clamp(26px, 3.2vw, 34px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .path-card p {
+      margin: 16px 0 0;
+      font-size: 16px;
+    }
+
+    .path-list {
+      display: grid;
+      gap: 12px;
+      margin: 24px 0 28px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .path-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 17px;
+      min-width: 0;
+      color: #394151;
+      font-size: 15px;
+      overflow-wrap: break-word;
+    }
+
+    .path-list li::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 10px;
+      height: 10px;
+      margin-top: 7px;
+      border-radius: 999px;
+      background: var(--blue);
+    }
+
+    .path-card:nth-child(2) .path-list li::before {
+      background: var(--teal);
+    }
+
+    .path-card .button {
+      align-self: flex-start;
+      margin-top: auto;
+    }
+
+    .path-card code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.94em;
+      overflow-wrap: break-word;
+    }
+
+    .path-list span {
+      min-width: 0;
+    }
+
     .card {
       background: white;
       border: 1px solid var(--line);
@@ -414,6 +494,7 @@
 
       .stats,
       .grid,
+      .paths,
       .legend {
         grid-template-columns: 1fr;
       }
@@ -436,6 +517,7 @@
         <span>LossCast-Bench</span>
       </a>
       <nav class="navlinks" aria-label="Primary">
+        <a href="#paths">Paths</a>
         <a href="#dataset">Dataset</a>
         <a href="#baselines">Baselines</a>
         <a href="#demo">Demo</a>
@@ -450,8 +532,8 @@
           <h1>Predict the loss curve before the run exists.</h1>
           <p class="lede">LossCast-Bench is an open benchmark for building world models of deep learning: predictors that forecast LLM pretraining loss from the recipe alone.</p>
           <div class="actions">
-            <a class="button" href="https://github.com/dangxingyu/losscast-bench#one-minute-demo">Run the demo</a>
-            <a class="button secondary" href="https://github.com/dangxingyu/losscast-bench/blob/master/PREDICT.md">Build a predictor</a>
+            <a class="button" href="#paths">Choose your path</a>
+            <a class="button secondary" href="https://github.com/dangxingyu/losscast-bench#one-minute-demo">Run the demo</a>
           </div>
           <div class="stats" aria-label="Benchmark snapshot">
             <div class="stat"><strong>5,896</strong><span>public train/val runs</span></div>
@@ -499,6 +581,35 @@
             <span><i style="background:#c2410c"></i>Chinchilla</span>
           </div>
         </aside>
+      </section>
+
+      <section class="section" id="paths">
+        <div class="section-head">
+          <h2>Two ways to join the loop.</h2>
+          <p>LossCast-Bench is both a place to publish real pretraining curves and a benchmark for predictors that learn from them.</p>
+        </div>
+        <div class="paths">
+          <article class="path-card">
+            <h3>I run pretraining.</h3>
+            <p>Contribute a recipe, loss curve, and optional code snapshot from a real run. The benchmark checks the schema and adds it to the public train/val pool.</p>
+            <ul class="path-list">
+              <li><span>Package <code>config.json</code> and <code>losses.json</code> for each run.</span></li>
+              <li><span>Validate locally before opening a data PR.</span></li>
+              <li><span>Grow the benchmark while keeping hidden test runs private.</span></li>
+            </ul>
+            <a class="button secondary" href="https://github.com/dangxingyu/losscast-bench/blob/master/CONTRIBUTE.md">Contribute a run</a>
+          </article>
+          <article class="path-card">
+            <h3>I build predictors.</h3>
+            <p>Train on public runs, tune on public validation, and submit a predictor that maps a full training recipe to a full loss trajectory.</p>
+            <ul class="path-list">
+              <li><span>Load train/val splits with the package API.</span></li>
+              <li><span>Forecast every required eval checkpoint.</span></li>
+              <li><span>Compare locally, then target the hidden d26 leaderboard.</span></li>
+            </ul>
+            <a class="button secondary" href="https://github.com/dangxingyu/losscast-bench/blob/master/PREDICT.md">Build a predictor</a>
+          </article>
+        </div>
       </section>
 
       <section class="section" id="dataset">
