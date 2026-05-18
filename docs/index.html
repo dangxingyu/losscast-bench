@@ -296,10 +296,37 @@
       font-size: 16px;
     }
 
+    .instruction-label {
+      margin-top: 24px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .instruction-box {
+      margin-top: 10px;
+      padding: 18px;
+      color: #d7e2ff;
+      background: #111827;
+      border-radius: 8px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      line-height: 1.55;
+      overflow-wrap: anywhere;
+    }
+
+    .copy-button {
+      align-self: flex-start;
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      font-family: inherit;
+    }
+
     .path-list {
       display: grid;
       gap: 12px;
-      margin: 24px 0 28px;
+      margin: 22px 0 28px;
       padding: 0;
       list-style: none;
     }
@@ -331,6 +358,10 @@
     .path-card .button {
       align-self: flex-start;
       margin-top: auto;
+    }
+
+    .path-card .copy-button {
+      margin-top: 12px;
     }
 
     .path-card code {
@@ -405,6 +436,26 @@
       border: 1px solid var(--line);
       border-radius: 8px;
       box-shadow: 0 8px 24px rgba(18, 21, 31, 0.05);
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 8px;
+    }
+
+    .leaderboard-table {
+      min-width: 860px;
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+      white-space: nowrap;
+    }
+
+    .leaderboard-table td:first-child {
+      white-space: normal;
+      min-width: 170px;
     }
 
     th,
@@ -506,6 +557,61 @@
       .section-head p {
         margin-top: 16px;
       }
+
+      .table-wrap {
+        overflow: visible;
+      }
+
+      .leaderboard-table {
+        display: block;
+        min-width: 0;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+      }
+
+      .leaderboard-table thead {
+        display: none;
+      }
+
+      .leaderboard-table tbody {
+        display: grid;
+        gap: 12px;
+      }
+
+      .leaderboard-table tr {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 22px;
+        padding: 16px 18px;
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .leaderboard-table td {
+        display: grid;
+        gap: 3px;
+        padding: 9px 0;
+        border: 0;
+        white-space: normal;
+      }
+
+      .leaderboard-table td::before {
+        content: attr(data-label);
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .leaderboard-table td:first-child {
+        grid-column: 1 / -1;
+        min-width: 0;
+        margin-bottom: 4px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--line);
+      }
     }
   </style>
 </head>
@@ -545,8 +651,8 @@
         <aside class="visual" aria-label="Loss curve preview">
           <div class="visual-head">
             <div>
-              <h2>Recipe to curve</h2>
-              <p>Baselines score full trajectories, not just the final checkpoint.</p>
+              <h2>Predictor baseline</h2>
+              <p>Validation compares predicted trajectories against the actual loss curve.</p>
             </div>
           </div>
           <svg class="chart" viewBox="0 0 620 360" role="img" aria-label="Example predicted and actual loss curves">
@@ -578,7 +684,7 @@
           <div class="legend">
             <span><i style="background:#2563eb"></i>Actual</span>
             <span><i style="background:#0f766e"></i>xgboost_ultimate</span>
-            <span><i style="background:#c2410c"></i>Chinchilla</span>
+            <span><i style="background:#c2410c"></i>predictor_baseline</span>
           </div>
         </aside>
       </section>
@@ -592,6 +698,9 @@
           <article class="path-card">
             <h3>I run pretraining.</h3>
             <p>Contribute a recipe, loss curve, and optional code snapshot from a real run. The benchmark checks the schema and adds it to the public train/val pool.</p>
+            <div class="instruction-label">Send your agent this instruction:</div>
+            <div class="instruction-box"><code>Read https://raw.githubusercontent.com/dangxingyu/losscast-bench/master/CONTRIBUTE.md and follow the instructions to submit a training run to LossCast-Bench.</code></div>
+            <button class="button secondary copy-button" type="button" data-copy="Read https://raw.githubusercontent.com/dangxingyu/losscast-bench/master/CONTRIBUTE.md and follow the instructions to submit a training run to LossCast-Bench.">Copy instruction</button>
             <ul class="path-list">
               <li><span>Package <code>config.json</code> and <code>losses.json</code> for each run.</span></li>
               <li><span>Validate locally before opening a data PR.</span></li>
@@ -602,6 +711,9 @@
           <article class="path-card">
             <h3>I build predictors.</h3>
             <p>Train on public runs, tune on public validation, and submit a predictor that maps a full training recipe to a full loss trajectory.</p>
+            <div class="instruction-label">Send your agent this instruction:</div>
+            <div class="instruction-box"><code>Read https://raw.githubusercontent.com/dangxingyu/losscast-bench/master/PREDICT.md and follow the instructions to build and evaluate a loss predictor for LossCast-Bench.</code></div>
+            <button class="button secondary copy-button" type="button" data-copy="Read https://raw.githubusercontent.com/dangxingyu/losscast-bench/master/PREDICT.md and follow the instructions to build and evaluate a loss predictor for LossCast-Bench.">Copy instruction</button>
             <ul class="path-list">
               <li><span>Load train/val splits with the package API.</span></li>
               <li><span>Forecast every required eval checkpoint.</span></li>
@@ -640,39 +752,62 @@
 
       <section class="section" id="baselines">
         <div class="section-head">
-          <h2>Strong tabular baselines, clear NCPL comparison.</h2>
-          <p>The headline comparison uses the identical 1,109-run NCPL OOD validation split, excluding public-val-only calibration sweeps.</p>
+          <h2>Leaderboard snapshot.</h2>
+          <p>Curve-wide validation metrics on the identical 1,109-run NCPL OOD split, excluding public-val-only calibration sweeps.</p>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Method</th>
-              <th>Marin final MAE</th>
-              <th>StepLaw final MAE</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Our xgboost_ultimate</strong></td>
-              <td>0.0157</td>
-              <td>0.0169</td>
-              <td>Small tree ensemble baseline trained from JSON features.</td>
-            </tr>
-            <tr>
-              <td>NCPL Neural Ansatz (ft, 1.7B)</td>
-              <td>0.0168</td>
-              <td>0.0223</td>
-              <td>Paper Table 1, same OOD split.</td>
-            </tr>
-            <tr>
-              <td>NCPL XGBoost</td>
-              <td>0.0325</td>
-              <td>0.0246</td>
-              <td>Published tree baseline.</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-wrap">
+          <table class="leaderboard-table">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Huber↓</th>
+                <th>R²↑</th>
+                <th>MAPE↓</th>
+                <th>Curve MAE↓</th>
+                <th>Final MAE↓</th>
+                <th>Final ρ↑</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Method"><strong>xgboost_v2</strong></td>
+                <td data-label="Huber"><strong>0.000451</strong></td>
+                <td data-label="R²"><strong>0.96</strong></td>
+                <td data-label="MAPE"><strong>1.56%</strong></td>
+                <td data-label="Curve MAE"><strong>0.0497</strong></td>
+                <td data-label="Final MAE">0.0360</td>
+                <td data-label="Final ρ">0.973</td>
+              </tr>
+              <tr>
+                <td data-label="Method"><strong>xgboost_ultimate</strong></td>
+                <td data-label="Huber">0.000547</td>
+                <td data-label="R²">0.94</td>
+                <td data-label="MAPE">1.64%</td>
+                <td data-label="Curve MAE">0.0591</td>
+                <td data-label="Final MAE"><strong>0.0165</strong></td>
+                <td data-label="Final ρ"><strong>0.993</strong></td>
+              </tr>
+              <tr>
+                <td data-label="Method">pca_xgboost</td>
+                <td data-label="Huber">0.000700</td>
+                <td data-label="R²">0.88</td>
+                <td data-label="MAPE">2.01%</td>
+                <td data-label="Curve MAE">0.0745</td>
+                <td data-label="Final MAE">0.0225</td>
+                <td data-label="Final ρ">0.987</td>
+              </tr>
+              <tr>
+                <td data-label="Method">chinchilla</td>
+                <td data-label="Huber">0.003721</td>
+                <td data-label="R²">0.70</td>
+                <td data-label="MAPE">13.58%</td>
+                <td data-label="Curve MAE">0.3771</td>
+                <td data-label="Final MAE">0.3852</td>
+                <td data-label="Final ρ">0.529</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section class="section" id="demo">
@@ -712,5 +847,24 @@ Validation:        PASSED</code></pre>
       LossCast-Bench is MIT licensed. Public data is in GitHub; hidden test runs remain private for leaderboard scoring.
     </footer>
   </div>
+  <script>
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const original = button.textContent;
+        const text = button.getAttribute("data-copy");
+
+        try {
+          await navigator.clipboard.writeText(text);
+          button.textContent = "Copied";
+        } catch {
+          button.textContent = "Select the text above";
+        }
+
+        window.setTimeout(() => {
+          button.textContent = original;
+        }, 1600);
+      });
+    });
+  </script>
 </body>
 </html>
